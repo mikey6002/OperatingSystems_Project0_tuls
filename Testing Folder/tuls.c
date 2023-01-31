@@ -1,4 +1,4 @@
-#define _GNU_SOURCE;
+#define _GNU_SOURCE
 
 #include <dirent.h>
 #include <stdio.h>
@@ -52,7 +52,7 @@ closedir(dir);
 }
 
 
-int main(int argc, const char **argv[]){
+int main(int argc, const char *argv[]){
 
 allFiles(".");
    return 0;
