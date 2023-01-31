@@ -15,12 +15,11 @@ void allFiles(const char *dirname){
     //if state ment if there is an error
     if (dir ==NULL){
         perror("Error");
-        return 1;
+        return;
     }
     printf("Currently Reading files in %s \n", dirname);
     
     struct dirent *entry;
-    struct stat file_stat;
 
     entry = readdir(dir); // This will give some entries or null 
 
@@ -53,7 +52,7 @@ closedir(dir);
 }
 
 
-int main(int argc, char const **argv[]){
+int main(int argc, const char **argv[]){
 
 allFiles(".");
    return 0;
