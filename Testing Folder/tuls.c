@@ -6,7 +6,7 @@
 #include <string.h>
 #include <sys/stat.h>
 
-
+// "borrowed" and inpired by https://www.ibm.com/docs/en/zos/2.4.0?topic=functions-opendir-open-directory"
 
 void allFiles(const char *dirname){
 
@@ -28,11 +28,15 @@ void allFiles(const char *dirname){
     while(entry != NULL){
         //constructing a path
         char path[6969];
+        if(entry -> d_type ==DT_DIR){
+            printf("directory ");
+        }
         //prints file folder name.. etc in the current directory
          printf("%s\n", entry->d_name);
            if ( (entry ->d_type == DT_DIR) && 
                (strcmp(entry ->d_name, ".")  !=0) && 
                (strcmp(entry ->d_name, "..") !=0) ) { // compares entry name with "." and comapres with ".."
+
             //concat dirname
             strcat(path,dirname);
             strcat(path, "/");
