@@ -6,6 +6,21 @@
 #include <stdlib.h>
 
 
+
+//Function to check if the given path is a file or a directory
+int isDir(char* path) {
+   struct stat st;
+
+    // Checking Error if there is a path
+   if (stat(path, &st) == -1) {
+       printf("Could not get information about %s\n", path);
+       return -1;
+   }
+
+   return S_ISDIR(st.st_mode);
+}
+
+
 int main(int argc, char** argv) {
    //Error checking
    if (argc < 3) {
