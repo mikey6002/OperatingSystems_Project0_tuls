@@ -6,6 +6,38 @@
 #include <stdlib.h>
 
 
+//https://stackoverflow.com/questions/7267295/how-can-i-copy-a-file-from-one-directory-to-another-in-c-c
+//Function to copy one file to another
+void copyFile(char* sourceFile, char* destinFile) {
+   int sourceFd, destFd;
+   char buffer[BUFFER_SIZE];
+   ssize_t exp;
+
+   //Open source and destination files
+   sourceFd = open(sourceFile, O_RDONLY);
+   destFd = open(destinFile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+
+   //Error checking
+   if (sourceFd == -1) {
+       printf("Could not open source file\n");
+        exit(-1);
+   }
+   if (destFd == -1) {
+       printf("Could not open destination file\n");
+        exit(-1);
+   }
+
+   //Copy the source file to the destination file
+   while ((exp = read(sourceFd, buffer, BUFFER_SIZE)) > 0) {
+       write(destFd, buffer, exp);
+   }
+
+   //Close the files
+   close(sourceFd);
+   close(destFd);
+}
+
+
 
 //Function to check if the given path is a file or a directory
 int isDir(char* path) {
