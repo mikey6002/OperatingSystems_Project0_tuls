@@ -1,3 +1,9 @@
+//Overwrite ./tucp 1.txt 2.txt
+// if file 2 does not exist ./tucp 1.txt another.txt
+// copy file(s) to a different directoy ./tucp 1.txt 1.txt 2.txt 2.txt Dir/ 
+
+
+
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -8,7 +14,6 @@
 #define BUFFER_SIZE 1024
 
 // Was in a time crunch studying for midterms  forgive me using a lot of stack overflows ;-;
-
 
 //https://stackoverflow.com/questions/7267295/how-can-i-copy-a-file-from-one-directory-to-another-in-c-c
 //Function to copy one file to another
@@ -41,6 +46,7 @@ void copyFile(char* sourceFile, char* destinFile) {
    close(destFd);
 }
 
+
 //https://stackoverflow.com/questions/15796503/copying-multiple-files-in-c
 //Function to copy multiple files to a directory
 void copyFilesToDir(char** sourceFiles, int numFiles, char* destDir) {
@@ -49,7 +55,7 @@ void copyFilesToDir(char** sourceFiles, int numFiles, char* destDir) {
    ssize_t exp;
 
    //Iterate through the source files
-   for (int i=0; i<numFiles; i++) {
+   for (int i=1; i<numFiles; i++) {
        //Create the full path for the destination file
        char destinFile[strlen(destDir) + strlen(sourceFiles[i]) + 1];
        strcpy(destinFile, destDir);
@@ -81,7 +87,6 @@ void copyFilesToDir(char** sourceFiles, int numFiles, char* destDir) {
    }
 }
 
-
 //Function to check if the given path is a file or a directory
 int isDir(char* path) {
    struct stat st;
@@ -96,7 +101,8 @@ int isDir(char* path) {
 }
 
 
-int main(int argc, char** argv) {
+
+int main(int argc, char *argv[]) {
    //Error checking
    if (argc < 3) {
        printf("Error: not enough arguments\n");
@@ -111,13 +117,10 @@ int main(int argc, char** argv) {
        copyFile(argv[1], argv[2]);
    }
 
-   //Copy one file to a directory
-   else if ((argc == 3) && (isDestDir)) {
-       copyFile(argv[1], argv[2]);
-   }
+
 
    //Copy multiple files to a directory
-   else if ((argc > 3) && (isDestDir)) {
+   else if ((argc >=3) && (isDestDir)) {
        copyFilesToDir(argv, argc-2, argv[argc-1]);
    }
 
